@@ -1,0 +1,1443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.2.1">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="MyFirstSteps" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">20</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">5</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+          <collectionProp name="Arguments.arguments">
+            <elementProp name="FULL_NAME" elementType="Argument">
+              <stringProp name="Argument.name">FULL_NAME</stringProp>
+              <stringProp name="Argument.value">ACORN ENERGY INC</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+          </collectionProp>
+        </Arguments>
+        <hashTree/>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
+          <stringProp name="delimiter">\</stringProp>
+          <stringProp name="fileEncoding">UTF-8</stringProp>
+          <stringProp name="filename">C:/jmeter/Sergiy Rudenko tasks/fullName.csv</stringProp>
+          <boolProp name="ignoreFirstLine">false</boolProp>
+          <boolProp name="quotedData">false</boolProp>
+          <boolProp name="recycle">true</boolProp>
+          <stringProp name="shareMode">shareMode.group</stringProp>
+          <boolProp name="stopThread">false</boolProp>
+          <stringProp name="variableNames">fullNames</stringProp>
+        </CSVDataSet>
+        <hashTree/>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="false">
+          <stringProp name="delimiter">;</stringProp>
+          <stringProp name="fileEncoding">UTF-8</stringProp>
+          <stringProp name="filename">C:/jmeter/Sergiy Rudenko tasks/fullNames.csv</stringProp>
+          <boolProp name="ignoreFirstLine">false</boolProp>
+          <boolProp name="quotedData">false</boolProp>
+          <boolProp name="recycle">true</boolProp>
+          <stringProp name="shareMode">shareMode.all</stringProp>
+          <boolProp name="stopThread">false</boolProp>
+          <stringProp name="variableNames">fullNames</stringProp>
+        </CSVDataSet>
+        <hashTree/>
+        <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="Error Handler" enabled="true">
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="script">import org.apache.jmeter.config.Argument;
+import org.apache.jmeter.config.Arguments;
+import java.net.URLEncoder;
+import java.net.URLDecoder;
+
+String assertionActivateString=vars.get(&quot;AssertionActivate&quot;);
+String exceptionMessage=vars.get(&quot;AssertionExceptionMessage&quot;);
+
+
+if (assertionActivateString!=null)
+{
+	if (assertionActivateString.equals(&quot;true&quot;))
+	{		
+		String message=&quot; MY_WARNING: &quot;+exceptionMessage;
+		AssertionResult.setFailure(true);
+		AssertionResult.setFailureMessage(message);		
+		vars.put(&quot;AssertionActivate&quot;,&quot;false&quot;);		
+	}
+
+}
+else
+{
+	vars.put(&quot;AssertionActivate&quot;,&quot;false&quot;);	
+}</stringProp>
+          <stringProp name="scriptLanguage">groovy</stringProp>
+        </JSR223Assertion>
+        <hashTree/>
+        <TestFragmentController guiclass="TestFragmentControllerGui" testclass="TestFragmentController" testname="TF_Request_2" enabled="true"/>
+        <hashTree>
+          <kg.apc.jmeter.samplers.DummySampler guiclass="kg.apc.jmeter.samplers.DummySamplerGui" testclass="kg.apc.jmeter.samplers.DummySampler" testname="Request_1" enabled="true">
+            <boolProp name="WAITING">true</boolProp>
+            <boolProp name="SUCCESFULL">true</boolProp>
+            <stringProp name="RESPONSE_CODE">200</stringProp>
+            <stringProp name="RESPONSE_MESSAGE">OK</stringProp>
+            <stringProp name="REQUEST_DATA">Dummy Sampler used to simulate requests and responses
+without actual network activity. This helps debugging tests.</stringProp>
+            <stringProp name="RESPONSE_DATA">{
+	&quot;data&quot;: [
+		{
+			&quot;securityId&quot;: 219713,
+			&quot;fullName&quot;: &quot;ACORN ENERGY INC&quot;,
+			&quot;shortName&quot;: &quot;ACFN&quot;
+		},
+		{
+			&quot;securityId&quot;: 219813,
+			&quot;fullName&quot;: &quot;AFFINITY NETWORKS INC&quot;,
+			&quot;shortName&quot;: &quot;AFFN&quot;
+		},
+		{
+			&quot;securityId&quot;: 2102,
+			&quot;fullName&quot;: &quot;AG GROWTH INTERNATIONAL INC&quot;,
+			&quot;shortName&quot;: &quot;AFN&quot;
+		},
+		{
+			&quot;securityId&quot;: 2639622,
+			&quot;fullName&quot;: &quot;AH MTG ADV TR 2011-1 VFNTS&quot;,
+			&quot;shortName&quot;: &quot;AHMAT&quot;
+		},
+		{
+			&quot;securityId&quot;: 2639953,
+			&quot;fullName&quot;: &quot;ALESCO PREF FDG XI 2006-11 A-1B FN 144A&quot;,
+			&quot;shortName&quot;: &quot;ALESC&quot;
+		},
+		{
+			&quot;securityId&quot;: 2575276,
+			&quot;fullName&quot;: &quot;BABCOCK&amp; BROWN AIR FNDG 2007-1 G-1&quot;,
+			&quot;shortName&quot;: &quot;BBAIR&quot;
+		},
+		{
+			&quot;securityId&quot;: 55574,
+			&quot;fullName&quot;: &quot;BANK FIRST NATIONAL CORPORATION (WI)&quot;,
+			&quot;shortName&quot;: &quot;BFNC&quot;
+		},
+		{
+			&quot;securityId&quot;: 48652,
+			&quot;fullName&quot;: &quot;CCFNB BANCORP INC&quot;,
+			&quot;shortName&quot;: &quot;CCFN&quot;
+		},
+		{
+			&quot;securityId&quot;: 120008,
+			&quot;fullName&quot;: &quot;CAPITOL FEDERAL FINANCIAL INC&quot;,
+			&quot;shortName&quot;: &quot;CFFN&quot;
+		},
+		{
+			&quot;securityId&quot;: 2137463,
+			&quot;fullName&quot;: &quot;CM FINANCE INC COM&quot;,
+			&quot;shortName&quot;: &quot;CMFN&quot;
+		},
+		{
+			&quot;securityId&quot;: 172459,
+			&quot;fullName&quot;: &quot;CLAYMORE EXCHANGE TRD FD TR GUGGEN DEFN EQTY&quot;,
+			&quot;shortName&quot;: &quot;DEF&quot;
+		},
+		{
+			&quot;securityId&quot;: 17176,
+			&quot;fullName&quot;: &quot;DIFFUSION PHARMACEUTICALS INC&quot;,
+			&quot;shortName&quot;: &quot;DFFN&quot;
+		},
+		{
+			&quot;securityId&quot;: 6665264,
+			&quot;fullName&quot;: &quot;REALITY SHS ETF TR DIVCN DIVD ETF&quot;,
+			&quot;shortName&quot;: &quot;DFND&quot;
+		},
+		{
+			&quot;securityId&quot;: 145702,
+			&quot;fullName&quot;: &quot;DUFRY AG&quot;,
+			&quot;shortName&quot;: &quot;DUFN&quot;
+		},
+		{
+			&quot;securityId&quot;: 69170,
+			&quot;fullName&quot;: &quot;EFUEL EFN CORPORATION&quot;,
+			&quot;shortName&quot;: &quot;EFLN&quot;
+		},
+		{
+			&quot;securityId&quot;: 2218014,
+			&quot;fullName&quot;: &quot;ELEMENT FLEET MANAGEMENT CORP 5125% SUB CONV PIDI UNSEC DEB 30/06/2019 CAD (144&quot;,
+			&quot;shortName&quot;: &quot;EFNCN&quot;
+		},
+		{
+			&quot;securityId&quot;: 1723666,
+			&quot;fullName&quot;: &quot;ISHARES TR MSCI FINLAND CAPPED ETF&quot;,
+			&quot;shortName&quot;: &quot;EFNL&quot;
+		},
+		{
+			&quot;securityId&quot;: 53425,
+			&quot;fullName&quot;: &quot;ELFUN TRUSTS UNIT CTF&quot;,
+			&quot;shortName&quot;: &quot;ELFNX&quot;
+		},
+		{
+			&quot;securityId&quot;: 18208,
+			&quot;fullName&quot;: &quot;EQUITABLE FINANCIAL CORP&quot;,
+			&quot;shortName&quot;: &quot;EQFN&quot;
+		},
+		{
+			&quot;securityId&quot;: 1092807,
+			&quot;fullName&quot;: &quot;ISHARES MSCI EUROPE FINANACIALS ETF&quot;,
+			&quot;shortName&quot;: &quot;EUFN&quot;
+		}
+	],
+	&quot;totalCount&quot;: 228298
+}</stringProp>
+            <stringProp name="RESPONSE_TIME">${__Random(50,500)}</stringProp>
+            <stringProp name="LATENCY">${__Random(1,50)}</stringProp>
+            <stringProp name="CONNECT">${__Random(1,5)}</stringProp>
+            <stringProp name="URL"></stringProp>
+            <stringProp name="RESULT_CLASS">org.apache.jmeter.samplers.SampleResult</stringProp>
+          </kg.apc.jmeter.samplers.DummySampler>
+          <hashTree>
+            <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="Parse JSON and get securityID" enabled="true">
+              <stringProp name="filename"></stringProp>
+              <stringProp name="parameters">RequestBody</stringProp>
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="script">import net.minidev.json.parser.JSONParser;
+import net.minidev.json.JSONObject;
+import net.minidev.json.JSONArray;
+import org.apache.commons.lang3.Stringutils;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
+import net.minidev.json.*;
+import com.jayway.jsonpath.JsonPath;
+
+String fullName = vars.get(&quot;fullNames&quot;); 
+boolean errorIsHere = false;
+int count_records;
+String securityId=&quot;&quot;;
+String assertionExceptionMessage =&quot;&quot;;
+int exists;
+JSONParser parser = new JSONParser(JSONParser.MODE_PERMISSIVE);
+JSONArray arr;
+JSONObject response;
+
+
+try {
+response=(JSONObject) parser.parse(prev.getResponseDataAsString());
+exists = prev.getResponseDataAsString().length();
+
+if(exists==0)
+{
+	count_records=0;
+}
+else{
+	arr = (JSONArray)response.get(&quot;data&quot;);
+	count_records = arr.size();
+}
+//if (!true) {throw new Exception();}
+} 
+	catch (Exception e)
+	{
+	assertionExceptionMessage = assertionExceptionMessage + &quot;The response NOT in JSON format: &quot; + prev.getResponseDataAsString()+&quot;Response Code: &quot;+prev.getResponseCode()+&quot;\r\n&quot;; 		
+  	errorIsHere = true;
+}
+if(!errorIsHere)
+{
+	if(count_records==0)
+	{	
+ 	assertionExceptionMessage = assertionExceptionMessage +&quot;There are no records in previous response. Current number of records: &quot;+ count_records+&quot;\r\n&quot;;
+  	errorIsHere = true;
+	}
+	log.info(count_records.toString());
+	
+	if((fullName==null))
+	{
+ 	assertionExceptionMessage = assertionExceptionMessage +&quot;Current value of ISSUER_FULL NAME is invalid \r\n&quot;;
+ 	errorIsHere = true;
+	}
+	else{
+		if(arr.get(0).get(&quot;securityId&quot;)==null)
+		{
+			assertionExceptionMessage = assertionExceptionMessage +&quot;There are no such key in JSON \r\n&quot;;
+ 			errorIsHere = true;
+		}
+		else
+		{
+			for(Object member : arr)
+			{	
+     			if(member.get(&quot;fullName&quot;).equals(fullName))
+     			 {
+	  				securityId = member.get(&quot;securityId&quot;).toString();   
+	  		 	break;
+    				 }      
+			}
+		}		
+	if(securityId.equals(&quot;&quot;))
+	{
+	assertionExceptionMessage = assertionExceptionMessage +&quot;The record Security_id is empty or ISSUER_FULL NAME prameter has mistakes. Current value of Security_id is 0\r\n&quot;;
+ 	errorIsHere = true;
+	}
+	log.info(securityId.toString());
+	}
+}
+if(errorIsHere)
+{
+	log.error(assertionExceptionMessage);
+	vars.put(&quot;AssertionActivate&quot;, &quot;true&quot;);
+	vars.put(&quot;AssertionExceptionMessage&quot;, assertionExceptionMessage);
+}
+
+JSONObject requestJS = new JSONObject();
+requestJS.put(&quot;securityId&quot;, securityId);
+String request2 = requestJS.toJSONString();
+vars.put(&quot;RequestBody&quot;,request2);
+
+
+
+
+</stringProp>
+            </BeanShellPostProcessor>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="false">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters">RequestBody</stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script">import groovy.json.*
+
+String fullName = vars.get(&quot;fullNames&quot;); 
+boolean errorIsHere = false;
+int count_records;
+String securityId=&quot;&quot;;
+String assertionExceptionMessage =&quot;&quot;;
+int exists;
+def response;
+
+
+def jsonSlurper = new JsonSlurper();
+try {
+response = jsonSlurper.parseText(prev.getResponseDataAsString());
+}
+catch (Exception e)
+	{
+	assertionExceptionMessage = assertionExceptionMessage + &quot;The response NOT in JSON format: &quot; + prev.getResponseDataAsString()+&quot;Response Code: &quot;+prev.getResponseCode()+&quot;\r\n&quot;; 		
+  	errorIsHere = true;
+	}
+
+if(!errorIsHere)
+{
+	if(count_records==0)
+	{	
+ 	assertionExceptionMessage = assertionExceptionMessage +&quot;There are no records in previous response. Current number of records: &quot;+ count_records+&quot;\r\n&quot;;
+  	errorIsHere = true;
+	}
+	log.info(count_records.toString());
+	
+	if((fullName==null))
+	{
+ 	assertionExceptionMessage = assertionExceptionMessage +&quot;Current value of ISSUER_FULL NAME is invalid \r\n&quot;;
+ 	errorIsHere = true;
+	}
+	else{
+		if(arr.get(0).get(&quot;securityId&quot;)==null)
+		{
+			assertionExceptionMessage = assertionExceptionMessage +&quot;There are no such key in JSON \r\n&quot;;
+ 			errorIsHere = true;
+		}
+		else
+		{
+			for(Object member : arr)
+			{	
+     			if(member.get(&quot;fullName&quot;).equals(fullName))
+     			 {
+     			 	//def getApplicationById = {fullName -&gt; response.data.find{fullName == it.fullName}}
+//Object getText = getApplicationById(&quot;ACORN ENERGY INC&quot;);
+	  				securityId = member.get(&quot;securityId&quot;).toString();   
+	  		 	break;
+    				 }      
+			}
+		}		
+	if(securityId.equals(&quot;&quot;))
+	{
+	assertionExceptionMessage = assertionExceptionMessage +&quot;The record Security_id is empty or ISSUER_FULL NAME prameter has mistakes. Current value of Security_id is 0\r\n&quot;;
+ 	errorIsHere = true;
+	}
+	log.info(securityId.toString());
+	}
+}
+if(errorIsHere)
+{
+	log.error(assertionExceptionMessage);
+	vars.put(&quot;AssertionActivate&quot;, &quot;true&quot;);
+	vars.put(&quot;AssertionExceptionMessage&quot;, assertionExceptionMessage);
+}
+def build =  new JsonBuilder([&quot;fullName&quot; : getText.fullName, &quot;SecurityId&quot; : getText.securityId]);
+vars.put(&quot;RequestBody&quot;, build.toPrettyString());</stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+            <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="TASK2" enabled="false">
+              <boolProp name="resetInterpreter">false</boolProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="script">import net.minidev.json.parser.JSONParser;
+import net.minidev.json.JSONObject;
+import net.minidev.json.JSONArray;
+import org.apache.commons.lang3.Stringutils;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
+import net.minidev.json.*;
+import com.jayway.jsonpath.JsonPath;
+import java.util.HashMap;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+String fullName = vars.get(&quot;FULL_NAME&quot;);
+boolean errorIsHere = false;
+int count_records;
+String securityId=&quot;&quot;;
+String assertionExceptionMessage =&quot;&quot;;
+int exists;
+JSONArray arr; JSONArray f_arr;
+JSONObject response;
+  				JSONObject JSONarr = new JSONObject();
+String fullNamesString = vars.get(&quot;fullNames&quot;); 
+String [] fullNamesArray = fullNamesString.split(&quot;/&quot;);
+Map myMap1 = new HashMap();
+
+exists = prev.getResponseDataAsString().length();
+//log.info(exists);
+
+JSONParser parser = new JSONParser(JSONParser.MODE_PERMISSIVE);
+try {
+response=(JSONObject) parser.parse(prev.getResponseDataAsString());
+if(exists!=0)
+{
+	arr = (JSONArray)response.get(&quot;data&quot;);
+	count_records = arr.size();
+}
+else{
+count_records=0;
+assertionExceptionMessage = assertionExceptionMessage + &quot;The response DON`T have data \r\n&quot;; 		
+errorIsHere = true;
+}
+//if (!true) {throw new Exception();}
+} 
+	catch (Exception e)
+	{
+	assertionExceptionMessage = assertionExceptionMessage + &quot;The response NOT in JSON format: &quot; + prev.getResponseDataAsString()+&quot;Response Code: &quot;+prev.getResponseCode()+&quot;\r\n&quot;; 		
+  	errorIsHere = true;
+}
+
+if(!errorIsHere)
+{
+	if(count_records==0)
+	{	
+ 	assertionExceptionMessage = assertionExceptionMessage +&quot;There are no records in previous response. Current number of records: &quot;+ count_records+&quot;\r\n&quot;;
+  	errorIsHere = true;
+	}
+	log.info(count_records.toString());
+	
+	if(fullName==null||fullName.equals(&quot;&quot;))
+	{
+ 	assertionExceptionMessage = assertionExceptionMessage +&quot;Current value of ISSUER_FULL NAME is invalid \r\n&quot;;
+ 	errorIsHere = true;
+	}
+	else{
+		if(arr.get(0).get(&quot;securityId&quot;)==null)
+		{
+			assertionExceptionMessage = assertionExceptionMessage +&quot;There are no such key in JSON \r\n&quot;;
+ 			errorIsHere = true;
+		}
+		else
+		{
+				for(Object member : arr)
+			{	
+				for (int i=0; i&lt; fullNamesArray.length; i++)
+			{
+
+     			if(member.get(&quot;fullName&quot;).equals(fullNamesArray[i].trim()))
+     			 {
+
+	  				securityId=member.get(&quot;securityId&quot;).toString(); 
+	  				myMap1.put(fullNamesArray[i].trim(),securityId);	
+	
+					//JSONarr.put(&quot;securityId&quot;, securityId);
+					//JSONarr.put(&quot;fullName&quot;, fullNamesArray[i].trim());		
+					//f_arr.put(JSONarr);		
+	  		 	break;
+    				 }   
+			}
+			}
+		}		
+	if(securityId.equals(&quot;&quot;))
+	{
+	assertionExceptionMessage = assertionExceptionMessage +&quot;The record Security_id is empty or ISSUER_FULL NAME prameter has mistakes. Current value of Security_id is 0\r\n&quot;;
+ 	errorIsHere = true;
+	}
+	log.info(securityId.toString());
+	}
+}
+if(errorIsHere)
+{
+	log.error(assertionExceptionMessage);
+	vars.put(&quot;AssertionActivate&quot;, &quot;true&quot;);
+	vars.put(&quot;AssertionExceptionMessage&quot;, assertionExceptionMessage);
+}
+
+
+ ObjectMapper objectMapper = new ObjectMapper();
+ String json = objectMapper.writeValueAsString(myMap1.values());
+ log.info(json);
+ vars.put(&quot;RequestBody&quot;,json);
+
+for (String i : myMap1.keySet()) {
+      System.out.println(&quot;key: &quot; + i + &quot; value: &quot; + myMap1.get(i));
+    }
+
+
+
+
+</stringProp>
+            </BeanShellPostProcessor>
+            <hashTree/>
+            <DebugPostProcessor guiclass="TestBeanGUI" testclass="DebugPostProcessor" testname="Debug PostProcessor" enabled="true">
+              <boolProp name="displayJMeterProperties">false</boolProp>
+              <boolProp name="displayJMeterVariables">true</boolProp>
+              <boolProp name="displaySamplerProperties">true</boolProp>
+              <boolProp name="displaySystemProperties">false</boolProp>
+            </DebugPostProcessor>
+            <hashTree/>
+            <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="ResponseCode Assertion" enabled="true">
+              <stringProp name="scriptLanguage">java</stringProp>
+              <stringProp name="parameters">RequestSucceeded</stringProp>
+              <stringProp name="filename">C:/jmeter/Sergiy Rudenko tasks/validation/validation.txt</stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script"></stringProp>
+            </JSR223Assertion>
+            <hashTree/>
+            <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="false">
+              <stringProp name="scriptLanguage">groovy</stringProp>
+              <stringProp name="parameters"></stringProp>
+              <stringProp name="filename"></stringProp>
+              <stringProp name="cacheKey">true</stringProp>
+              <stringProp name="script"></stringProp>
+            </JSR223PostProcessor>
+            <hashTree/>
+          </hashTree>
+          <kg.apc.jmeter.samplers.DummySampler guiclass="kg.apc.jmeter.samplers.DummySamplerGui" testclass="kg.apc.jmeter.samplers.DummySampler" testname="Request_2" enabled="true">
+            <boolProp name="WAITING">true</boolProp>
+            <boolProp name="SUCCESFULL">true</boolProp>
+            <stringProp name="RESPONSE_CODE">200</stringProp>
+            <stringProp name="RESPONSE_MESSAGE">OK</stringProp>
+            <stringProp name="REQUEST_DATA">${RequestBody}</stringProp>
+            <stringProp name="RESPONSE_DATA"></stringProp>
+            <stringProp name="RESPONSE_TIME">${__Random(50,500)}</stringProp>
+            <stringProp name="LATENCY">${__Random(1,50)}</stringProp>
+            <stringProp name="CONNECT">${__Random(1,5)}</stringProp>
+            <stringProp name="URL"></stringProp>
+            <stringProp name="RESULT_CLASS">org.apache.jmeter.samplers.SampleResult</stringProp>
+          </kg.apc.jmeter.samplers.DummySampler>
+          <hashTree/>
+        </hashTree>
+        <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="PARAMS" enabled="true">
+          <boolProp name="TransactionController.includeTimers">false</boolProp>
+          <boolProp name="TransactionController.parent">true</boolProp>
+        </TransactionController>
+        <hashTree>
+          <kg.apc.jmeter.control.ParameterizedController guiclass="kg.apc.jmeter.control.ParameterizedControllerGui" testclass="kg.apc.jmeter.control.ParameterizedController" testname="jp@gc - Parameterized Controller" enabled="true">
+            <elementProp name="ParameterizedController" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="fullNames" elementType="Argument">
+                  <stringProp name="Argument.name">fullNames</stringProp>
+                  <stringProp name="Argument.value">AG GROWTH INTERNATIONAL INC</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </kg.apc.jmeter.control.ParameterizedController>
+          <hashTree>
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Controller" enabled="true">
+              <collectionProp name="ModuleController.node_path">
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="488265027">MyFirstSteps</stringProp>
+                <stringProp name="-1948168983">Thread Group</stringProp>
+                <stringProp name="-2065509163">TF_Request_2</stringProp>
+              </collectionProp>
+            </ModuleController>
+            <hashTree/>
+          </hashTree>
+          <kg.apc.jmeter.control.ParameterizedController guiclass="kg.apc.jmeter.control.ParameterizedControllerGui" testclass="kg.apc.jmeter.control.ParameterizedController" testname="jp@gc - Parameterized Controller" enabled="true">
+            <elementProp name="ParameterizedController" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="fullNames" elementType="Argument">
+                  <stringProp name="Argument.name">fullNames</stringProp>
+                  <stringProp name="Argument.value">ALESCO PREF FDG XI 2006-11 A-1B FN 144A</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </kg.apc.jmeter.control.ParameterizedController>
+          <hashTree>
+            <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="Module Controller3" enabled="true">
+              <collectionProp name="ModuleController.node_path">
+                <stringProp name="764597751">Test Plan</stringProp>
+                <stringProp name="488265027">MyFirstSteps</stringProp>
+                <stringProp name="-1948168983">Thread Group</stringProp>
+                <stringProp name="-2065509163">TF_Request_2</stringProp>
+              </collectionProp>
+            </ModuleController>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="Simple Controller" enabled="false"/>
+        <hashTree>
+          <kg.apc.jmeter.control.ParameterizedController guiclass="kg.apc.jmeter.control.ParameterizedControllerGui" testclass="kg.apc.jmeter.control.ParameterizedController" testname="jp@gc - Parameterized Controller" enabled="true">
+            <elementProp name="ParameterizedController" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="fullNames" elementType="Argument">
+                  <stringProp name="Argument.name">fullNames</stringProp>
+                  <stringProp name="Argument.value">AG GROWTH INTERNATIONAL INC</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </kg.apc.jmeter.control.ParameterizedController>
+          <hashTree/>
+          <kg.apc.jmeter.control.ParameterizedController guiclass="kg.apc.jmeter.control.ParameterizedControllerGui" testclass="kg.apc.jmeter.control.ParameterizedController" testname="jp@gc - Parameterized Controller" enabled="true">
+            <elementProp name="ParameterizedController" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="fullNames" elementType="Argument">
+                  <stringProp name="Argument.name">fullNames</stringProp>
+                  <stringProp name="Argument.value">ALESCO PREF FDG XI 2006-11 A-1B FN 144A</stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+          </kg.apc.jmeter.control.ParameterizedController>
+          <hashTree/>
+        </hashTree>
+        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC_P1" enabled="false">
+          <collectionProp name="ModuleController.node_path">
+            <stringProp name="764597751">Test Plan</stringProp>
+            <stringProp name="488265027">MyFirstSteps</stringProp>
+            <stringProp name="-1948168983">Thread Group</stringProp>
+            <stringProp name="-1942098554">PARAMS</stringProp>
+            <stringProp name="-226293120">jp@gc - Parameterized Controller</stringProp>
+          </collectionProp>
+        </ModuleController>
+        <hashTree/>
+        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC_P2" enabled="false">
+          <collectionProp name="ModuleController.node_path">
+            <stringProp name="764597751">Test Plan</stringProp>
+            <stringProp name="488265027">MyFirstSteps</stringProp>
+            <stringProp name="-1948168983">Thread Group</stringProp>
+            <stringProp name="-1942098554">PARAMS</stringProp>
+            <stringProp name="-226293120">jp@gc - Parameterized Controller</stringProp>
+          </collectionProp>
+        </ModuleController>
+        <hashTree/>
+        <ModuleController guiclass="ModuleControllerGui" testclass="ModuleController" testname="MC_While" enabled="true">
+          <collectionProp name="ModuleController.node_path">
+            <stringProp name="764597751">Test Plan</stringProp>
+            <stringProp name="488265027">MyFirstSteps</stringProp>
+            <stringProp name="-1948168983">Thread Group</stringProp>
+            <stringProp name="-1351559125">While Controller</stringProp>
+            <stringProp name="-371283284">While Condition</stringProp>
+          </collectionProp>
+        </ModuleController>
+        <hashTree/>
+        <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 time" enabled="false">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">def date = new Date().parse(&apos;yyyy/MM/dd&apos;, date.getTime())
+ println(date) 
+
+def timeZoneDate = aDate.format(&quot;EEEE, MMMM dd, yyyy, hh:mm a &apos;(&apos;zzz&apos;)&apos;&quot;, TimeZone.getTimeZone(&quot;EST5EDT&quot;)) // get date for specific timezone
+log.debug(timeZoneDate)
+log.debug(date)
+
+</stringProp>
+        </JSR223Sampler>
+        <hashTree/>
+      </hashTree>
+      <ResultCollector guiclass="AssertionVisualizer" testclass="ResultCollector" testname="Assertion Result" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>true</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+            <sentBytes>true</sentBytes>
+            <url>true</url>
+            <threadCounts>true</threadCounts>
+            <idleTime>true</idleTime>
+            <connectTime>true</connectTime>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">15</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">5</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <WhileController guiclass="WhileControllerGui" testclass="WhileController" testname="While Controller" enabled="true">
+          <stringProp name="WhileController.condition">{fullNames}</stringProp>
+        </WhileController>
+        <hashTree>
+          <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController" testname="While Condition" enabled="true">
+            <boolProp name="TransactionController.includeTimers">false</boolProp>
+            <boolProp name="TransactionController.parent">true</boolProp>
+          </TransactionController>
+          <hashTree>
+            <kg.apc.jmeter.samplers.DummySampler guiclass="kg.apc.jmeter.samplers.DummySamplerGui" testclass="kg.apc.jmeter.samplers.DummySampler" testname="Request_1" enabled="true">
+              <boolProp name="WAITING">true</boolProp>
+              <boolProp name="SUCCESFULL">true</boolProp>
+              <stringProp name="RESPONSE_CODE">200</stringProp>
+              <stringProp name="RESPONSE_MESSAGE">OK</stringProp>
+              <stringProp name="REQUEST_DATA">Dummy Sampler used to simulate requests and responses
+without actual network activity. This helps debugging tests.</stringProp>
+              <stringProp name="RESPONSE_DATA">{
+	&quot;data&quot;: [
+		{
+			&quot;securityId&quot;: 219713,
+			&quot;fullName&quot;: &quot;ACORN ENERGY INC&quot;,
+			&quot;shortName&quot;: &quot;ACFN&quot;
+		},
+		{
+			&quot;securityId&quot;: 219813,
+			&quot;fullName&quot;: &quot;AFFINITY NETWORKS INC&quot;,
+			&quot;shortName&quot;: &quot;AFFN&quot;
+		},
+		{
+			&quot;securityId&quot;: 2102,
+			&quot;fullName&quot;: &quot;AG GROWTH INTERNATIONAL INC&quot;,
+			&quot;shortName&quot;: &quot;AFN&quot;
+		},
+		{
+			&quot;securityId&quot;: 2639622,
+			&quot;fullName&quot;: &quot;AH MTG ADV TR 2011-1 VFNTS&quot;,
+			&quot;shortName&quot;: &quot;AHMAT&quot;
+		},
+		{
+			&quot;securityId&quot;: 2639953,
+			&quot;fullName&quot;: &quot;ALESCO PREF FDG XI 2006-11 A-1B FN 144A&quot;,
+			&quot;shortName&quot;: &quot;ALESC&quot;
+		},
+		{
+			&quot;securityId&quot;: 2575276,
+			&quot;fullName&quot;: &quot;BABCOCK&amp; BROWN AIR FNDG 2007-1 G-1&quot;,
+			&quot;shortName&quot;: &quot;BBAIR&quot;
+		},
+		{
+			&quot;securityId&quot;: 55574,
+			&quot;fullName&quot;: &quot;BANK FIRST NATIONAL CORPORATION (WI)&quot;,
+			&quot;shortName&quot;: &quot;BFNC&quot;
+		},
+		{
+			&quot;securityId&quot;: 48652,
+			&quot;fullName&quot;: &quot;CCFNB BANCORP INC&quot;,
+			&quot;shortName&quot;: &quot;CCFN&quot;
+		},
+		{
+			&quot;securityId&quot;: 120008,
+			&quot;fullName&quot;: &quot;CAPITOL FEDERAL FINANCIAL INC&quot;,
+			&quot;shortName&quot;: &quot;CFFN&quot;
+		},
+		{
+			&quot;securityId&quot;: 2137463,
+			&quot;fullName&quot;: &quot;CM FINANCE INC COM&quot;,
+			&quot;shortName&quot;: &quot;CMFN&quot;
+		},
+		{
+			&quot;securityId&quot;: 172459,
+			&quot;fullName&quot;: &quot;CLAYMORE EXCHANGE TRD FD TR GUGGEN DEFN EQTY&quot;,
+			&quot;shortName&quot;: &quot;DEF&quot;
+		},
+		{
+			&quot;securityId&quot;: 17176,
+			&quot;fullName&quot;: &quot;DIFFUSION PHARMACEUTICALS INC&quot;,
+			&quot;shortName&quot;: &quot;DFFN&quot;
+		},
+		{
+			&quot;securityId&quot;: 6665264,
+			&quot;fullName&quot;: &quot;REALITY SHS ETF TR DIVCN DIVD ETF&quot;,
+			&quot;shortName&quot;: &quot;DFND&quot;
+		},
+		{
+			&quot;securityId&quot;: 145702,
+			&quot;fullName&quot;: &quot;DUFRY AG&quot;,
+			&quot;shortName&quot;: &quot;DUFN&quot;
+		},
+		{
+			&quot;securityId&quot;: 69170,
+			&quot;fullName&quot;: &quot;EFUEL EFN CORPORATION&quot;,
+			&quot;shortName&quot;: &quot;EFLN&quot;
+		},
+		{
+			&quot;securityId&quot;: 2218014,
+			&quot;fullName&quot;: &quot;ELEMENT FLEET MANAGEMENT CORP 5125% SUB CONV PIDI UNSEC DEB 30/06/2019 CAD (144&quot;,
+			&quot;shortName&quot;: &quot;EFNCN&quot;
+		},
+		{
+			&quot;securityId&quot;: 1723666,
+			&quot;fullName&quot;: &quot;ISHARES TR MSCI FINLAND CAPPED ETF&quot;,
+			&quot;shortName&quot;: &quot;EFNL&quot;
+		},
+		{
+			&quot;securityId&quot;: 53425,
+			&quot;fullName&quot;: &quot;ELFUN TRUSTS UNIT CTF&quot;,
+			&quot;shortName&quot;: &quot;ELFNX&quot;
+		},
+		{
+			&quot;securityId&quot;: 18208,
+			&quot;fullName&quot;: &quot;EQUITABLE FINANCIAL CORP&quot;,
+			&quot;shortName&quot;: &quot;EQFN&quot;
+		},
+		{
+			&quot;securityId&quot;: 1092807,
+			&quot;fullName&quot;: &quot;ISHARES MSCI EUROPE FINANACIALS ETF&quot;,
+			&quot;shortName&quot;: &quot;EUFN&quot;
+		}
+	],
+	&quot;totalCount&quot;: 228298
+}</stringProp>
+              <stringProp name="RESPONSE_TIME">${__Random(50,500)}</stringProp>
+              <stringProp name="LATENCY">${__Random(1,50)}</stringProp>
+              <stringProp name="CONNECT">${__Random(1,5)}</stringProp>
+              <stringProp name="URL"></stringProp>
+              <stringProp name="RESULT_CLASS">org.apache.jmeter.samplers.SampleResult</stringProp>
+            </kg.apc.jmeter.samplers.DummySampler>
+            <hashTree>
+              <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
+                <stringProp name="delimiter">\</stringProp>
+                <stringProp name="fileEncoding">UTF-8</stringProp>
+                <stringProp name="filename">C:/jmeter/Sergiy Rudenko tasks/fullName.csv</stringProp>
+                <boolProp name="ignoreFirstLine">false</boolProp>
+                <boolProp name="quotedData">false</boolProp>
+                <boolProp name="recycle">false</boolProp>
+                <stringProp name="shareMode">shareMode.group</stringProp>
+                <boolProp name="stopThread">true</boolProp>
+                <stringProp name="variableNames">fullNames</stringProp>
+              </CSVDataSet>
+              <hashTree/>
+              <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="Parse JSON and get securityID" enabled="true">
+                <stringProp name="filename"></stringProp>
+                <stringProp name="parameters">RequestBody</stringProp>
+                <boolProp name="resetInterpreter">false</boolProp>
+                <stringProp name="script">import net.minidev.json.parser.JSONParser;
+import net.minidev.json.JSONObject;
+import net.minidev.json.JSONArray;
+import org.apache.commons.lang3.Stringutils;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
+import net.minidev.json.*;
+import com.jayway.jsonpath.JsonPath;
+
+String fullName = vars.get(&quot;fullNames&quot;); 
+//String fullName = &quot;${FULL_NAME}&quot;;
+boolean errorIsHere = false;
+int count_records;
+String securityId=&quot;&quot;;
+String assertionExceptionMessage =&quot;&quot;;
+int exists;
+JSONParser parser = new JSONParser(JSONParser.MODE_PERMISSIVE);
+JSONArray arr;
+JSONObject response;
+
+
+try {
+response=(JSONObject) parser.parse(prev.getResponseDataAsString());
+exists = prev.getResponseDataAsString().length();
+
+if(exists==0)
+{
+	count_records=0;
+}
+else{
+	arr = (JSONArray)response.get(&quot;data&quot;);
+	count_records = arr.size();
+}
+//if (!true) {throw new Exception();}
+} 
+	catch (Exception e)
+	{
+	assertionExceptionMessage = assertionExceptionMessage + &quot;The response NOT in JSON format: &quot; + prev.getResponseDataAsString()+&quot;Response Code: &quot;+prev.getResponseCode()+&quot;\r\n&quot;; 		
+  	errorIsHere = true;
+}
+if(!errorIsHere)
+{
+	if(count_records==0)
+	{	
+ 	assertionExceptionMessage = assertionExceptionMessage +&quot;There are no records in previous response. Current number of records: &quot;+ count_records+&quot;\r\n&quot;;
+  	errorIsHere = true;
+	}
+	log.info(count_records.toString());
+	
+	if((fullName==null))
+	{
+ 	assertionExceptionMessage = assertionExceptionMessage +&quot;Current value of ISSUER_FULL NAME is invalid \r\n&quot;;
+ 	errorIsHere = true;
+	}
+	else{
+		if(arr.get(0).get(&quot;securityId&quot;)==null)
+		{
+			assertionExceptionMessage = assertionExceptionMessage +&quot;There are no such key in JSON \r\n&quot;;
+ 			errorIsHere = true;
+		}
+		else
+		{
+			for(Object member : arr)
+			{	
+     			if(member.get(&quot;fullName&quot;).equals(fullName))
+     			 {
+	  				securityId = member.get(&quot;securityId&quot;).toString();   
+	  		 	break;
+    				 }      
+			}
+		}		
+	if(securityId.equals(&quot;&quot;))
+	{
+	assertionExceptionMessage = assertionExceptionMessage +&quot;The record Security_id is empty or ISSUER_FULL NAME prameter has mistakes. Current value of Security_id is 0\r\n&quot;;
+ 	errorIsHere = true;
+	}
+	log.info(securityId.toString());
+	}
+}
+if(errorIsHere)
+{
+	log.error(assertionExceptionMessage);
+	vars.put(&quot;AssertionActivate&quot;, &quot;true&quot;);
+	vars.put(&quot;AssertionExceptionMessage&quot;, assertionExceptionMessage);
+}
+
+JSONObject requestJS = new JSONObject();
+requestJS.put(&quot;securityId&quot;, securityId);
+String request2 = requestJS.toJSONString();
+vars.put(&quot;RequestBody&quot;,request2);
+
+
+
+
+</stringProp>
+              </BeanShellPostProcessor>
+              <hashTree/>
+              <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="false">
+                <stringProp name="scriptLanguage">groovy</stringProp>
+                <stringProp name="parameters">RequestBody</stringProp>
+                <stringProp name="filename"></stringProp>
+                <stringProp name="cacheKey">true</stringProp>
+                <stringProp name="script">import groovy.json.*
+def jsonSlurper = new JsonSlurper();
+def response = jsonSlurper.parseText(prev.getResponseDataAsString());
+def getApplicationById = {fullName -&gt; response.data.find{fullName == it.fullName}}
+Object getText = getApplicationById(&quot;ACORN ENERGY INC&quot;);
+def build =  new JsonBuilder([&quot;fullName&quot; : getText.fullName, &quot;SecurityId&quot; : getText.securityId]);
+vars.put(&quot;RequestBody&quot;, build.toPrettyString());</stringProp>
+              </JSR223PostProcessor>
+              <hashTree/>
+              <BeanShellPostProcessor guiclass="TestBeanGUI" testclass="BeanShellPostProcessor" testname="TASK2" enabled="false">
+                <boolProp name="resetInterpreter">false</boolProp>
+                <stringProp name="parameters"></stringProp>
+                <stringProp name="filename"></stringProp>
+                <stringProp name="script">import net.minidev.json.parser.JSONParser;
+import net.minidev.json.JSONObject;
+import net.minidev.json.JSONArray;
+import org.apache.commons.lang3.Stringutils;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
+import net.minidev.json.*;
+import com.jayway.jsonpath.JsonPath;
+import java.util.HashMap;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+String fullName = vars.get(&quot;FULL_NAME&quot;);
+boolean errorIsHere = false;
+int count_records;
+String securityId=&quot;&quot;;
+String assertionExceptionMessage =&quot;&quot;;
+int exists;
+JSONArray arr; JSONArray f_arr;
+JSONObject response;
+  				JSONObject JSONarr = new JSONObject();
+String fullNamesString = vars.get(&quot;fullNames&quot;); 
+String [] fullNamesArray = fullNamesString.split(&quot;/&quot;);
+Map myMap1 = new HashMap();
+
+exists = prev.getResponseDataAsString().length();
+//log.info(exists);
+
+JSONParser parser = new JSONParser(JSONParser.MODE_PERMISSIVE);
+try {
+response=(JSONObject) parser.parse(prev.getResponseDataAsString());
+if(exists!=0)
+{
+	arr = (JSONArray)response.get(&quot;data&quot;);
+	count_records = arr.size();
+}
+else{
+count_records=0;
+assertionExceptionMessage = assertionExceptionMessage + &quot;The response DON`T have data \r\n&quot;; 		
+errorIsHere = true;
+}
+//if (!true) {throw new Exception();}
+} 
+	catch (Exception e)
+	{
+	assertionExceptionMessage = assertionExceptionMessage + &quot;The response NOT in JSON format: &quot; + prev.getResponseDataAsString()+&quot;Response Code: &quot;+prev.getResponseCode()+&quot;\r\n&quot;; 		
+  	errorIsHere = true;
+}
+
+if(!errorIsHere)
+{
+	if(count_records==0)
+	{	
+ 	assertionExceptionMessage = assertionExceptionMessage +&quot;There are no records in previous response. Current number of records: &quot;+ count_records+&quot;\r\n&quot;;
+  	errorIsHere = true;
+	}
+	log.info(count_records.toString());
+	
+	if(fullName==null||fullName.equals(&quot;&quot;))
+	{
+ 	assertionExceptionMessage = assertionExceptionMessage +&quot;Current value of ISSUER_FULL NAME is invalid \r\n&quot;;
+ 	errorIsHere = true;
+	}
+	else{
+		if(arr.get(0).get(&quot;securityId&quot;)==null)
+		{
+			assertionExceptionMessage = assertionExceptionMessage +&quot;There are no such key in JSON \r\n&quot;;
+ 			errorIsHere = true;
+		}
+		else
+		{
+				for(Object member : arr)
+			{	
+				for (int i=0; i&lt; fullNamesArray.length; i++)
+			{
+
+     			if(member.get(&quot;fullName&quot;).equals(fullNamesArray[i].trim()))
+     			 {
+
+	  				securityId=member.get(&quot;securityId&quot;).toString(); 
+	  				myMap1.put(fullNamesArray[i].trim(),securityId);	
+	
+					//JSONarr.put(&quot;securityId&quot;, securityId);
+					//JSONarr.put(&quot;fullName&quot;, fullNamesArray[i].trim());		
+					//f_arr.put(JSONarr);		
+	  		 	break;
+    				 }   
+			}
+			}
+		}		
+	if(securityId.equals(&quot;&quot;))
+	{
+	assertionExceptionMessage = assertionExceptionMessage +&quot;The record Security_id is empty or ISSUER_FULL NAME prameter has mistakes. Current value of Security_id is 0\r\n&quot;;
+ 	errorIsHere = true;
+	}
+	log.info(securityId.toString());
+	}
+}
+if(errorIsHere)
+{
+	log.error(assertionExceptionMessage);
+	vars.put(&quot;AssertionActivate&quot;, &quot;true&quot;);
+	vars.put(&quot;AssertionExceptionMessage&quot;, assertionExceptionMessage);
+}
+
+
+ ObjectMapper objectMapper = new ObjectMapper();
+ String json = objectMapper.writeValueAsString(myMap1.values());
+ log.info(json);
+ vars.put(&quot;RequestBody&quot;,json);
+
+for (String i : myMap1.keySet()) {
+      System.out.println(&quot;key: &quot; + i + &quot; value: &quot; + myMap1.get(i));
+    }
+
+
+
+
+</stringProp>
+              </BeanShellPostProcessor>
+              <hashTree/>
+              <DebugPostProcessor guiclass="TestBeanGUI" testclass="DebugPostProcessor" testname="Debug PostProcessor" enabled="true">
+                <boolProp name="displayJMeterProperties">false</boolProp>
+                <boolProp name="displayJMeterVariables">true</boolProp>
+                <boolProp name="displaySamplerProperties">true</boolProp>
+                <boolProp name="displaySystemProperties">false</boolProp>
+              </DebugPostProcessor>
+              <hashTree/>
+              <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="ResponseCode Assertion" enabled="true">
+                <stringProp name="scriptLanguage">java</stringProp>
+                <stringProp name="parameters">RequestSucceeded</stringProp>
+                <stringProp name="filename">C:/jmeter/Sergiy Rudenko tasks/validation/validation.txt</stringProp>
+                <stringProp name="cacheKey">true</stringProp>
+                <stringProp name="script"></stringProp>
+              </JSR223Assertion>
+              <hashTree/>
+            </hashTree>
+            <kg.apc.jmeter.samplers.DummySampler guiclass="kg.apc.jmeter.samplers.DummySamplerGui" testclass="kg.apc.jmeter.samplers.DummySampler" testname="Request_2" enabled="true">
+              <boolProp name="WAITING">true</boolProp>
+              <boolProp name="SUCCESFULL">true</boolProp>
+              <stringProp name="RESPONSE_CODE">200</stringProp>
+              <stringProp name="RESPONSE_MESSAGE">OK</stringProp>
+              <stringProp name="REQUEST_DATA">${RequestBody}</stringProp>
+              <stringProp name="RESPONSE_DATA"></stringProp>
+              <stringProp name="RESPONSE_TIME">${__Random(50,500)}</stringProp>
+              <stringProp name="LATENCY">${__Random(1,50)}</stringProp>
+              <stringProp name="CONNECT">${__Random(1,5)}</stringProp>
+              <stringProp name="URL"></stringProp>
+              <stringProp name="RESULT_CLASS">org.apache.jmeter.samplers.SampleResult</stringProp>
+            </kg.apc.jmeter.samplers.DummySampler>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <kg.apc.jmeter.samplers.DummySampler guiclass="kg.apc.jmeter.samplers.DummySamplerGui" testclass="kg.apc.jmeter.samplers.DummySampler" testname="jp@gc - Dummy Sampler" enabled="true">
+          <boolProp name="WAITING">true</boolProp>
+          <boolProp name="SUCCESFULL">true</boolProp>
+          <stringProp name="RESPONSE_CODE">200</stringProp>
+          <stringProp name="RESPONSE_MESSAGE">OK</stringProp>
+          <stringProp name="REQUEST_DATA">Dummy Sampler used to simulate requests and responses
+without actual network activity. This helps debugging tests.</stringProp>
+          <stringProp name="RESPONSE_DATA">{
+&quot;category_id&quot;: &quot;1&quot;, 
+ &quot;category_l&quot;: &quot;Computers and accessories&quot;,
+ &quot;category_goods&quot;: [
+	{&quot;id&quot;: &quot;100&quot;, &quot;name&quot;: &quot;monitor&quot;,&quot;price&quot;: &quot;125&quot;}
+  ]
+}
+
+</stringProp>
+          <stringProp name="RESPONSE_TIME">${__Random(50,500)}</stringProp>
+          <stringProp name="LATENCY">${__Random(1,50)}</stringProp>
+          <stringProp name="CONNECT">${__Random(1,5)}</stringProp>
+          <stringProp name="URL"></stringProp>
+          <stringProp name="RESULT_CLASS">org.apache.jmeter.samplers.SampleResult</stringProp>
+        </kg.apc.jmeter.samplers.DummySampler>
+        <hashTree/>
+        <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="JSR223 Assertion" enabled="true">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+String response = SampleResult.getResponseDataAsString();
+String REGEX = &apos;&quot;category_id&quot;: &quot;(.*)&quot;&apos;;
+
+Pattern pattern = Pattern.compile(REGEX);
+Matcher matcher = pattern.matcher(response);
+
+if (matcher.find() &amp;&amp; matcher.group(1).equals(&quot;1&quot;)) {
+	
+	log.info(&quot;The value of the \&quot;category ID\&quot; parameter is \&quot;1\&quot;&quot;);
+	
+} else {
+	
+	log.info(&quot;The value of the \&quot;Category ID\&quot; parameter was not found or is not equal to \&quot;1\&quot;&quot;);
+}</stringProp>
+        </JSR223Assertion>
+        <hashTree/>
+        <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="JSR223 Assertion" enabled="true">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">import java.util.regex.Pattern;
+import java.util.regex.MatchResult;
+import java.util.stream.Stream;
+
+String response = SampleResult.getResponseDataAsString();
+
+List&lt;String&gt; listREGEX = new ArrayList&lt;&gt;();
+listREGEX.add(&quot;category_name&quot;);
+listREGEX.add(&quot;category_id&quot;);
+listREGEX.add(&quot;category_goods&quot;);
+
+List&lt;String&gt; listParametersFromAPI = new ArrayList&lt;&gt;();
+
+listREGEX.stream().forEach{elementFromListREGEX -&gt;
+	Stream&lt;MatchResult&gt; result = Pattern.compile(elementFromListREGEX).matcher(response).results();
+     result.forEach{element -&gt; listParametersFromAPI.add(element.group(0))}
+};
+
+if (listParametersFromAPI.size() == listREGEX.size()) {
+	log.info(&quot;All parameters are present in the API response&quot;);
+} else {
+	log.info(&quot;There are no parameters in the API response or some parameters are missing&quot;);
+}</stringProp>
+        </JSR223Assertion>
+        <hashTree/>
+        <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="JSR223 Assertion" enabled="true">
+          <stringProp name="scriptLanguage">groovy</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="cacheKey">true</stringProp>
+          <stringProp name="script">import groovy.json.JsonSlurper;
+
+def failureMessage = &quot;&quot;;
+def jsonResponse = null;
+
+JsonSlurper JSON = new JsonSlurper ();
+
+try {
+    jsonResponse = JSON.parseText(prev.getResponseDataAsString());
+    } catch (Exception e) {
+    failureMessage += &quot;Invalid JSON.\n&quot;
+}
+
+if(!&quot;200&quot;.equals(prev.getResponseCode())){
+	failureMessage += &quot;Expected &lt;response code&gt; [200] but we got instead [&quot; + prev.getResponseCode() + &quot;]\n\n&quot; ;
+}
+
+if (!jsonResponse.keySet().containsAll([&quot;category_goods&quot;,&quot;category_id&quot;,&quot;category_name&quot;,&quot;id&quot;,&quot;name&quot;,&quot;price&quot;] )) {
+          failureMessage += &quot;The json config element has wrong structure.\n\n&quot;;
+}
+
+if (failureMessage?.trim()) {
+	AssertionResult.setFailureMessage(failureMessage);
+     AssertionResult.setFailure(true);    
+}
+
+// Print error messages if any
+if (failureMessage?.trim()) {
+    failureMessage += &quot;URL: &quot; + SampleResult.getURL() + &quot;\n\n&quot;;     
+    failureMessage += &quot;JSON RESPONSE: &quot; + jsonResponse + &quot;\n\n&quot;;
+    failureMessage += &quot;REQUEST HEADERS: &quot; + SampleResult.getRequestHeaders() + &quot;\n\n&quot;;
+
+    AssertionResult.setFailureMessage(failureMessage);
+    AssertionResult.setFailure(true);    
+}</stringProp>
+        </JSR223Assertion>
+        <hashTree/>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+      <BackendListener guiclass="BackendListenerGui" testclass="BackendListener" testname="Backend Listener" enabled="false">
+        <elementProp name="arguments" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" enabled="true">
+          <collectionProp name="Arguments.arguments">
+            <elementProp name="influxdbMetricsSender" elementType="Argument">
+              <stringProp name="Argument.name">influxdbMetricsSender</stringProp>
+              <stringProp name="Argument.value">org.apache.jmeter.visualizers.backend.influxdb.HttpMetricsSender</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="influxdbUrl" elementType="Argument">
+              <stringProp name="Argument.name">influxdbUrl</stringProp>
+              <stringProp name="Argument.value">http://localhost:8086/write?db=jmeter</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="application" elementType="Argument">
+              <stringProp name="Argument.name">application</stringProp>
+              <stringProp name="Argument.value">application name</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="measurement" elementType="Argument">
+              <stringProp name="Argument.name">measurement</stringProp>
+              <stringProp name="Argument.value">jmeter</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="summaryOnly" elementType="Argument">
+              <stringProp name="Argument.name">summaryOnly</stringProp>
+              <stringProp name="Argument.value">false</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="samplersRegex" elementType="Argument">
+              <stringProp name="Argument.name">samplersRegex</stringProp>
+              <stringProp name="Argument.value">.*</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="percentiles" elementType="Argument">
+              <stringProp name="Argument.name">percentiles</stringProp>
+              <stringProp name="Argument.value">90;95;99</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="testTitle" elementType="Argument">
+              <stringProp name="Argument.name">testTitle</stringProp>
+              <stringProp name="Argument.value">Test name</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="eventTags" elementType="Argument">
+              <stringProp name="Argument.name">eventTags</stringProp>
+              <stringProp name="Argument.value"></stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+          </collectionProp>
+        </elementProp>
+        <stringProp name="classname">org.apache.jmeter.visualizers.backend.influxdb.InfluxdbBackendListenerClient</stringProp>
+      </BackendListener>
+      <hashTree/>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
