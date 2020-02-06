@@ -1,0 +1,4 @@
+Repository for Jmeter scripts and reports was created. Another repository for BlogEngine files also was created. 
+Influx db collects data from 
+  •Jmeter; 
+  •and via telegraf collects data from virtual machine and machine with which I load a blog.
